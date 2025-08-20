@@ -1,5 +1,5 @@
 const pool = require("./db");
-
+const bcrypt = require("bcrypt");
 
 const createUserTable = () => {
     const query = `CREATE TABLE IF NOT EXISTS users (
@@ -132,6 +132,32 @@ const createOrderItems = () => {
     });
 };
 
+const createAdminUser = async () => {
+    try {
+        const name = "Admin";
+        const email = "admin@user.com";
+        const plainPassword = "admin";
+        const role = "admin";
+
+        const hashedPassword = await bcrypt.hash(plainPassword, 10);
+
+        const query = `
+            INSERT INTO users (name, email, password, role)
+            VALUES (?, ?, ?, ?)
+        `;
+
+        pool.query(query, [name, email, hashedPassword, role], (err, result) => {
+            if (err) {
+                console.log("Failed to create admin:", err.message);
+                return;
+            }
+            console.log("Admin user created successfully!");
+        });
+    } catch (error) {
+        console.error("Error creating admin:", error.message);
+    }
+};
+
 createCategories();
 createUserTable();
 createProducts();
@@ -139,3 +165,4 @@ createCart();
 createCartItems();
 createOrders();
 createOrderItems();
+createAdminUser();

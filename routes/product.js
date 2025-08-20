@@ -41,7 +41,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post('/category/insert', verifyAuthToken, authorizeRoles('admin'),(req, res) => {
+router.post('/category/insert', verifyAuthToken, authorizeRoles('admin'), (req, res) => {
     const { name } = req.body
     const query = `INSERT INTO categories (name) VALUES (?);`;
     pool.query(query, [name], (err, results) => {
@@ -100,7 +100,11 @@ router.post('/create', verifyAuthToken, authorizeRoles('admin'), upload.fields([
                     error: err,
                 });
             }
-
+            const io = req.app.get('io');
+            io.emit("newProduct", {
+                name: name,
+                price: price
+            });
             return res.status(201).json({
                 success: true,
                 message: 'Product created successfully.',
@@ -217,6 +221,16 @@ router.get('/list', (req, res) => {
         if (err) return res.status(500).send({ error: err.message });
         if (results.length === 0) return res.status(400).send({ sucess: false, message: "No products found" });
         return res.status(201).send({ results });
+    });
+});
+
+router.get('/get/:id', (req, res) => {
+    const productId = req.params.id;
+    const query = `select * from products where product_id=?;`;
+    pool.query(query, [productId], (err, results) => {
+        if (err) return res.status(500).send({ error: err.message });
+        if (results.length === 0) return res.status(400).send({ sucess: false, message: "No products found" });
+        return res.status(200).send(results[0]);
     });
 });
 

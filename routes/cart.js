@@ -157,12 +157,19 @@ router.post('/checkout', verifyAuthToken, authorizeRoles('customer'), (req, res)
                     );
 
                     completed++;
+                    
                     if (completed === cartItems.length) {
                         // 3. Clear the cart ONLY after all inserts/updates are done
                         pool.query("DELETE ci FROM cart_items ci JOIN cart c ON ci.cart_id = c.cart_id WHERE c.user_id = ?",
                             [userId],
                             (err) => {
                                 if (err) return res.status(500).json({ error: err.message });
+                                const io = req.app.get('io');
+                                io.emit("newOrder", {
+                                    orderId: 10,
+                                    userId: req.user.email,
+                                    total: 1000,
+                                });
                                 return res.json({ message: "Order placed successfully", orderId });
                             }
                         );
