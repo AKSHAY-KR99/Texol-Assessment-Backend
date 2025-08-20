@@ -46,33 +46,33 @@
    email - admin@user.com
    password - admin
 
-   after that close the server and run - nodemon index.js
+7. after that close the server and run - nodemon index.js
 
-   now backend setup ready to run ..!!!
+   now backend setup ready to run on http://localhost:3000 
 
 ## API Endpoints
-Create user - http://localhost:3000/api/user/create
-User login - http://localhost:3000/api/user/login
-Get logged in user - http://localhost:3000/api/user/current_user
-Create product - http://localhost:3000/api/product/create
-List product - http://localhost:3000/api/product/list
-get individual product - http://localhost:3000/api/product/get/1
-Update produdct - http://localhost:3000/api/product/update/1
-Delete Product - http://localhost:3000/api/product/delete/7
-Add category - http://localhost:3000/api/product/category/insert
-List category - http://localhost:3000/api/product/category/list
-Add to cart - http://localhost:3000/api/cart/add
-Edit cart - http://localhost:3000/api/cart/update/3
-Remove cart - http://localhost:3000/api/cart/remove/2
-Cart Checkout - http://localhost:3000/api/cart/checkout
-View Orders - http://localhost:3000/api/orders/list
+- Create user - http://localhost:3000/api/user/create
+- User login - http://localhost:3000/api/user/login
+- Get logged in user - http://localhost:3000/api/user/current_user
+- Create product - http://localhost:3000/api/product/create
+- List product - http://localhost:3000/api/product/list
+- get individual product - http://localhost:3000/api/product/get/1
+- Update produdct - http://localhost:3000/api/product/update/1
+- Delete Product - http://localhost:3000/api/product/delete/7
+- Add category - http://localhost:3000/api/product/category/insert
+- List category - http://localhost:3000/api/product/category/list
+- Add to cart - http://localhost:3000/api/cart/add
+- Edit cart - http://localhost:3000/api/cart/update/3
+- Remove cart - http://localhost:3000/api/cart/remove/2
+- Cart Checkout - http://localhost:3000/api/cart/checkout
+- View Orders - http://localhost:3000/api/orders/list
 
 Detailed API details i attached with email as postman API collection. you can import and use it very quicky.
 
 ## Test Accounts (if applicable)
 - Admin credentials
-    email - admin@user.com
-    password - admin
+    email: admin@user.com, 
+    password: admin
 
 - Sample user credentials
     You can create a user easily from the UI
